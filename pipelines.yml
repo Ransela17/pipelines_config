@@ -36,15 +36,15 @@ resources:
       imageTag: ${run_number}
       autoPull: true
 
-# Bulid info for build image by pipeline
-  - name: cli_build
-    type: BuildInfo
-    configuration:
-      sourceArtifactory: ran-cli
-      buildName: SampleApp
-      buildNumber: 1 
+# # Bulid info for build image by pipeline
+#   - name: cli_build
+#     type: BuildInfo
+#     configuration:
+#       sourceArtifactory: ran-cli
+#       buildName: SampleApp
+#       buildNumber: 1 
 
-######
+# ######
 
 
 
