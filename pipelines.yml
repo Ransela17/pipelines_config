@@ -92,10 +92,20 @@ pipelines:
           onComplete:
             - echo "Cleaning up some stuff"
       
-      # # Step 3 - Xray Scan
-      # - name: xray
-      #   type: XrayScan
-      #   configuration:
-      #     affinityGroup: ran_cli_group
-      #     inputResources:
-      #       - name: cli_buildinfo
+      # Step 3 - Push to Artifactory
+      - name: publish_app_build
+        type: PublishBuildInfo
+        configuration:
+          affinityGroup: ran_cli_group
+          inputSteps:
+            - name: demostep2Push
+          outputResources:
+            - name: cli_buildinfo
+
+      # Step 4 - Xray Scan
+      - name: xray
+        type: XrayScan
+        configuration:
+          affinityGroup: ran_cli_group
+          inputResources:
+            - name: cli_buildinfo
