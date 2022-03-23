@@ -32,7 +32,7 @@ resources:
     configuration:
       registry: MyArtifactory                             
       sourceRepository: ran-cli            
-      imageName: pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli 
+      imageName: pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli
       imageTag: ${run_number}
       autoPull: true
 
