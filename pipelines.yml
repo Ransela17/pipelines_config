@@ -25,7 +25,6 @@ resources:
 
 #####
 
-
 # New image location and source
   - name: ran_new_image1
     type: Image
@@ -47,16 +46,26 @@ resources:
 
 
 
-
-
 ##### JFrog Pipeline Steps #####
 
 pipelines:
-  - name: demo_pipelines
+  - name: ran_cli_pipeline
     steps:
       
-      # Step 1 - Build App Image 
-      - name: demostep
+      # Step 1 - Promot Build to get the app repository
+      - name: PromoteBuild
+        type: PromoteBuild
+        configuration: 
+          affinityGroup: ran_cli_group
+          targetRepository: #####
+        inputResources:
+          - name: ran_cli
+            trigger: false
+        outputResources:
+          - name: pipeline_config
+
+      # Step 2 - Build App Image 
+      - name: Build
         type: DockerBuild
         configuration:
           affinityGroup: ran_cli_group
@@ -69,8 +78,8 @@ pipelines:
           integrations:
             - name: MyArtifactory
 
-      # Step 2 - Push to Artifactory
-      - name: demostep2Push
+      # Step 3 - Push to Artifactory
+      - name: Push
         type: DockerPush
         configuration:
           affinityGroup: ran_cli_group
@@ -80,7 +89,7 @@ pipelines:
           integrations:
             - name: MyArtifactory                 
           inputSteps:
-            - name: demostep
+            - name: Build
 
         execution:
           onStart:
@@ -92,8 +101,8 @@ pipelines:
           onComplete:
             - echo "Cleaning up some stuff"
       
-      # Step 3 - Push to Artifactory
-      - name: publish_app_build
+      # Step 4 - Push to Artifactory
+      - name: Publish_app_build
         type: PublishBuildInfo
         configuration:
           affinityGroup: ran_cli_group
@@ -102,8 +111,8 @@ pipelines:
           outputResources:
             - name: cli_buildinfo
 
-      # Step 4 - Xray Scan
-      - name: xray
+      # Step 5 - Xray Scan
+      - name: Xray
         type: XrayScan
         configuration:
           affinityGroup: ran_cli_group

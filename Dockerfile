@@ -5,7 +5,9 @@ RUN apt-get update \
 RUN mkdir  -p /home/ran_cli
 WORKDIR /home/ran_cli
 
-RUN git clone https://github.com/Ransela17/ran-cli.git
+#RUN git clone https://github.com/Ransela17/ran-cli.git
+COPY ./ / 
+
 WORKDIR /home/ran_cli/ran-cli
 
 RUN pip3 install .
