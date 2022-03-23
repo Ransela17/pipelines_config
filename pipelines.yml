@@ -40,7 +40,7 @@ resources:
   - name: cli_build
     type: BuildInfo
     configuration:
-      sourceArtifactory: 
+      sourceArtifactory: ran-cli
       buildName: SampleApp
       buildNumber: 1 
 
