@@ -32,7 +32,7 @@ resources:
     configuration:
       registry: MyArtifactory                             
       sourceRepository: ran-cli            
-      imageName: pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli
+      imageName: pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli/ 
       imageTag: ${run_number}
       autoPull: true
 
@@ -61,7 +61,7 @@ pipelines:
           affinityGroup: ran_cli_group
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: pe16510rans.jfrog.io/artifactory/ran-cli  # replace with your image path and name
+          dockerImageName: pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli  # replace with your image path and name
           dockerImageTag: ${run_number}
           inputResources:
             - name: pipeline_config
@@ -74,7 +74,7 @@ pipelines:
           affinityGroup: ran_cli_group
           forceXrayScan: true
           failOnScan: true
-          targetRepository: ran-cli/ran-cli/
+          targetRepository: ran-cli
           integrations:
             - name: MyArtifactory                 
           inputSteps:
