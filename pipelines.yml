@@ -43,7 +43,7 @@ pipelines:
           dockerFileLocation: .
           dockerFileName: Dockerfile
           dockerImageName: docker.artprod.mycompany.com/docker_local/demo  # replace with your image path and name
-          dockerImageTag: ${run_number}
+          dockerImageTag: 1 #${run_number}
           inputResources:
             -name: pipeline_config
           integrations:
