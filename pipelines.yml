@@ -32,21 +32,10 @@ resources:
       autoPull: true
 
 # Bulid image by Docker
-  - name: app_buildinfo
+  - name: cli_build
     type: BuildInfo
     configuration:
       sourceArtifactory: MyArtifactory
-
-
-# # Docker image in an Artifactory repository
-#   - name: jfrog-docker
-#     type: Image
-#     configuration:
-#       registry: myArtifactory
-#       sourceRepository: ran-cli       
-#       imageName: pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli/ # Change path?  
-#       imageTag: latest
-#       autoPull: true
 
 ##### JFrog Pipeline Steps #####
 
@@ -66,3 +55,13 @@ pipelines:
           integrations:
             - name: ran_new_image
           #excution:
+
+
+
+
+      # - name: xray
+      #   type: XrayScan
+      #   configuration:
+      #     affinityGroup: "name"
+      #     inputResources:
+      #       - name: cli_build
