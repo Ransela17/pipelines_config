@@ -53,7 +53,7 @@ pipelines:
           inputResources:
             - name: pipeline_config
           integrations:
-            - name: ran_new_image
+            - name: MyArtifactory
           #excution:
 
 
