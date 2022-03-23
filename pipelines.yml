@@ -107,7 +107,7 @@ pipelines:
         configuration:
           affinityGroup: ran_cli_group
           inputSteps:
-            - name: demostep2Push
+            - name: Push
           outputResources:
             - name: cli_buildinfo
 
