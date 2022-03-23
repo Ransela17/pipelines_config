@@ -32,17 +32,16 @@ resources:
     configuration:
       registry: MyArtifactory                             
       sourceRepository: ran-cli            
-      imageName: pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli/ 
+      imageName: Ran_Cli #pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli/ 
       imageTag: ${run_number}
       autoPull: true
 
-# # Bulid info for build image by pipeline
-#   - name: cli_build
-#     type: BuildInfo
-#     configuration:
-#       sourceArtifactory: ran-cli
-#       buildName: SampleApp
-#       buildNumber: 1 
+# Bulid info for build image by pipeline
+  - name: cli_buildinfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: ran-cli
+
 
 # ######
 
@@ -55,19 +54,22 @@ resources:
 pipelines:
   - name: demo_pipelines
     steps:
+      
+      # Step 1 - Build App Image 
       - name: demostep
         type: DockerBuild
         configuration:
           affinityGroup: ran_cli_group
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli  # replace with your image path and name
+          dockerImageName: pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli 
           dockerImageTag: ${run_number}
           inputResources:
             - name: pipeline_config
           integrations:
             - name: MyArtifactory
 
+      # Step 2 - Push to Artifactory
       - name: demostep2Push
         type: DockerPush
         configuration:
@@ -89,13 +91,11 @@ pipelines:
             - echo "uh oh, something went wrong"
           onComplete:
             - echo "Cleaning up some stuff"
-
-
-
-
-      # - name: xray
-      #   type: XrayScan
-      #   configuration:
-      #     affinityGroup: ran_cli_group
-      #     inputResources:
-      #       - name: cli_build
+      
+      # Step 3 - Xray Scan
+      - name: xray
+        type: XrayScan
+        configuration:
+          affinityGroup: ran_cli_group
+          inputResources:
+            - name: cli_buildinfo
