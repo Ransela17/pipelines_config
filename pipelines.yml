@@ -42,7 +42,7 @@ pipelines:
           #affinityGroup: dbp_group
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: docker.artprod.mycompany.com/docker_local/demo  # replace with your image path and name
+          dockerImageName: pe16510rans.jfrog.io/artifactory/ran-cli/  # replace with your image path and name
           dockerImageTag: 1 #${run_number}
           inputResources:
             -name: pipeline_config
