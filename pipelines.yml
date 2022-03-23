@@ -40,9 +40,10 @@ resources:
 ##### JFrog Pipeline Steps #####
 
 pipelines:
-  - name: demo_pipeline
+  - name: demo_pipelines
+    
     steps:
-      - name: demo_step_1
+      - name: 1-demo_step
         type: BuildInfo
         configuration:
           #affinityGroup: dbp_group
