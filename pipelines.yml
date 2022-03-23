@@ -43,7 +43,7 @@ pipelines:
   - name: demo_pipelines
     
     steps:
-      - name: 1-demo_step
+      - name: 1_demo_step
         type: BuildInfo
         configuration:
           #affinityGroup: dbp_group
