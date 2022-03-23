@@ -27,12 +27,12 @@ resources:
 
 
 # New image location and source
-  - name: ran_new_image
+  - name: ran_new_image1
     type: Image
     configuration:
       registry: MyArtifactory                             
       sourceRepository: ran-cli            
-      imageName: Ran_Cli #pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli/ 
+      imageName: ran_image_name
       imageTag: ${run_number}
       autoPull: true
 
