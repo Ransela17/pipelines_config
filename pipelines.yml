@@ -41,9 +41,8 @@ resources:
 
 pipelines:
   - name: demo_pipelines
-    
     steps:
-      - name: 1_demo_step
+      - name: demo_step
         type: BuildInfo
         configuration:
           #affinityGroup: dbp_group
