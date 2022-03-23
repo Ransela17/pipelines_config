@@ -20,6 +20,8 @@ resources:
       path: Ransela17/pipelines_config                 
       branches:
         include: master
+      # buildOn:
+      #   commit: true
 
 # New image location and source
   - name: ran_new_image
@@ -31,7 +33,7 @@ resources:
       imageTag: ${run_number}
       autoPull: true
 
-# Bulid image by Docker
+# Bulid info for build image by pipeline
   - name: cli_build
     type: BuildInfo
     configuration:
@@ -45,7 +47,7 @@ pipelines:
       - name: demostep
         type: DockerBuild
         configuration:
-          #affinityGroup: dbp_group
+          affinityGroup: ran_cli_group
           dockerFileLocation: .
           dockerFileName: Dockerfile
           dockerImageName: pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli  # replace with your image path and name
@@ -54,7 +56,28 @@ pipelines:
             - name: pipeline_config
           integrations:
             - name: MyArtifactory
-          #excution:
+
+      - name: demostep2Push
+        type: DockerPush
+        configuration:
+          affinityGroup: ran_cli_group
+          forceXrayScan: true
+          failOnScan: true
+          targetRepository: ran-cli
+          integrations:
+            - name: ran_new_image                 
+          inputSteps:
+            - name: demostep
+
+        execution:
+          onStart:
+            - echo "Preparing for work..."
+          onSuccess:
+            - echo "Job well done!"
+          onFailure:
+            - echo "uh oh, something went wrong"
+          onComplete:
+            - echo "Cleaning up some stuff"
 
 
 
@@ -62,6 +85,6 @@ pipelines:
       # - name: xray
       #   type: XrayScan
       #   configuration:
-      #     affinityGroup: "name"
+      #     affinityGroup: ran_cli_group
       #     inputResources:
       #       - name: cli_build
