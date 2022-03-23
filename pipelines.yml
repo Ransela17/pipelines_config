@@ -1,1 +1,51 @@
-aaaaaaa
+##### JFrog - Ran Cli Pipeline #####
+
+resources:
+# Application source repository
+  - name: ran-cli
+    type: GitRepo
+    configuration:
+      gitProvider: MyGithub
+      path: Ransela17/ran-cli                
+      branches:
+        include: master
+      buildOn:
+        commit: true
+
+# Configutaion source repository
+  - name: pipeline_config
+    type: GitRepo
+    configuration:
+      gitProvider: MyGithub
+      path: Ransela17/pipelines_config                 
+      branches:
+        include: master
+
+# Docker image in an Artifactory repository
+  - name: jfrog-docker
+    type: Image
+    configuration:
+      registry: myArtifactory
+      sourceRepository: ran-cli       
+      imageName: pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli/ # Change path?  
+      imageTag: latest
+      autoPull: true
+
+##### JFrog Pipeline Steps #####
+
+pipelines:
+  - name: demo_pipeline
+    steps:
+      - name: demo_step_1
+        type: BuildInfo
+        configuration:
+          #affinityGroup: dbp_group
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: docker.artprod.mycompany.com/docker_local/demo  # replace with your image path and name
+          dockerImageTag: ${run_number}
+          inputResources:
+            -name: pipeline_config
+          integrations:
+            -name: MyGithub
+          #excution:
