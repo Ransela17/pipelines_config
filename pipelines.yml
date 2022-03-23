@@ -47,5 +47,5 @@ pipelines:
           inputResources:
             -name: pipeline_config
           integrations:
-            -name: MyGithub
+            -name: jfrog-docker
           #excution:
