@@ -40,7 +40,7 @@ resources:
   - name: cli_buildinfo
     type: BuildInfo
     configuration:
-      sourceArtifactory: ran-cli
+      sourceArtifactory: MyArtifactory
 
 
 # ######
