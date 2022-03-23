@@ -23,6 +23,9 @@ resources:
       # buildOn:
       #   commit: true
 
+#####
+
+
 # New image location and source
   - name: ran_new_image
     type: Image
@@ -37,7 +40,15 @@ resources:
   - name: cli_build
     type: BuildInfo
     configuration:
-      sourceArtifactory: MyArtifactory
+      sourceArtifactory: 
+      buildName: SampleApp
+      buildNumber: 1 
+
+######
+
+
+
+
 
 ##### JFrog Pipeline Steps #####
 
