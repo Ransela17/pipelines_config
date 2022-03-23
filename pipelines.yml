@@ -21,15 +21,32 @@ resources:
       branches:
         include: master
 
-# Docker image in an Artifactory repository
-  - name: jfrog-docker
+# New image location and source
+  - name: ran_new_image
     type: Image
     configuration:
-      registry: myArtifactory
-      sourceRepository: ran-cli       
-      imageName: pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli/ # Change path?  
-      imageTag: latest
+      registry: myArtifactory                             
+      sourceRepository: ran-cli            
+      imageName: pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli/ 
+      imageTag: ${run_number}
       autoPull: true
+
+# Bulid image by Docker
+  - name: app_buildinfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: myArtifactory
+
+
+# # Docker image in an Artifactory repository
+#   - name: jfrog-docker
+#     type: Image
+#     configuration:
+#       registry: myArtifactory
+#       sourceRepository: ran-cli       
+#       imageName: pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli/ # Change path?  
+#       imageTag: latest
+#       autoPull: true
 
 ##### JFrog Pipeline Steps #####
 
@@ -47,5 +64,5 @@ pipelines:
           inputResources:
             -name: pipeline_config
           integrations:
-            -name: jfrog-docker
+            -name: ran_new_image
           #excution:
