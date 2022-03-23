@@ -62,7 +62,7 @@ pipelines:
           affinityGroup: ran_cli_group
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: pe16510rans.jfrog.io/artifactory/ran-cli/ran-cli 
+          dockerImageName: pe16510rans.jfrog.io/ran-cli/ran-cli 
           dockerImageTag: ${run_number}
           inputResources:
             - name: pipeline_config
