@@ -5,8 +5,7 @@ RUN apt-get update \
 RUN mkdir  -p /home/ran_cli
 WORKDIR /home/ran_cli
 
-#RUN git clone https://github.com/Ransela17/ran-cli.git
-COPY ./ / 
+ADD . / 
 
 WORKDIR /home/ran_cli/ran-cli
 

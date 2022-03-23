@@ -12,28 +12,28 @@ resources:
       buildOn:
         commit: true
 
-# Configutaion source repository
-  - name: pipeline_config
-    type: GitRepo
-    configuration:
-      gitProvider: MyGithub
-      path: Ransela17/pipelines_config                 
-      branches:
-        include: master
-      # buildOn:
-      #   commit: true
+# # Configutaion source repository
+#   - name: pipeline_config
+#     type: GitRepo
+#     configuration:
+#       gitProvider: MyGithub
+#       path: Ransela17/pipelines_config                 
+#       branches:
+#         include: master
+#       # buildOn:
+#       #   commit: true
 
 #####
 
-# New image location and source
-  - name: ran_new_image1
-    type: Image
-    configuration:
-      registry: MyArtifactory                             
-      sourceRepository: ran-cli            
-      imageName: ran_image_name
-      imageTag: ${run_number}
-      autoPull: true
+# # New image location and source
+#   - name: ran_new_image1
+#     type: Image
+#     configuration:
+#       registry: MyArtifactory                             
+#       sourceRepository: ran-cli            
+#       imageName: ran_image_name
+#       imageTag: ${run_number}
+#       autoPull: true
 
 # Bulid info for build image by pipeline
   - name: cli_buildinfo
@@ -42,32 +42,13 @@ resources:
       sourceArtifactory: MyArtifactory
 
 
-# ######
-
-
-
 ##### JFrog Pipeline Steps #####
 
 pipelines:
   - name: ran_cli_pipeline
     steps:
       
-      # Step 1 - Promot Build to get the app repository
-      - name: PromoteBuild
-        type: PromoteBuild
-        configuration: 
-          affinityGroup: ran_cli_group
-          targetRepository: ran-cli
-        integrations:
-          - name: MyArtifactory  
-        inputResources:
-          - name: ran_cli
-            trigger: false
-        outputResources:
-          - name: pipeline_config
-
-
-      # Step 2 - Build App Image 
+      # Step 1 - Build App Image 
       - name: Build
         type: DockerBuild
         configuration:
@@ -77,11 +58,11 @@ pipelines:
           dockerImageName: pe16510rans.jfrog.io/ran-cli/ran-cli 
           dockerImageTag: ${run_number}
           inputResources:
-            - name: pipeline_config
+            - name: ran_cli
           integrations:
             - name: MyArtifactory
 
-      # Step 3 - Push to Artifactory
+      # Step 2 - Push to Artifactory
       - name: Push
         type: DockerPush
         configuration:
@@ -104,17 +85,17 @@ pipelines:
           onComplete:
             - echo "Cleaning up some stuff"
       
-      # Step 4 - Push to Artifactory
+      # Step 3 - Push to Artifactory
       - name: Publish_app_build
         type: PublishBuildInfo
         configuration:
           affinityGroup: ran_cli_group
           inputSteps:
-            - name: Push
+            - name: demostep2Push
           outputResources:
             - name: cli_buildinfo
 
-      # Step 5 - Xray Scan
+      # Step 4 - Xray Scan
       - name: Xray
         type: XrayScan
         configuration:
