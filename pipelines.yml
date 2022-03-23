@@ -57,12 +57,15 @@ pipelines:
         type: PromoteBuild
         configuration: 
           affinityGroup: ran_cli_group
-          targetRepository: #####
+          targetRepository: ran-cli
+        integrations:
+          - name: MyArtifactory  
         inputResources:
           - name: ran_cli
             trigger: false
         outputResources:
           - name: pipeline_config
+
 
       # Step 2 - Build App Image 
       - name: Build
