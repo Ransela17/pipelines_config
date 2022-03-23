@@ -2,7 +2,7 @@
 
 resources:
 # Application source repository
-  - name: ran-cli
+  - name: ran_cli
     type: GitRepo
     configuration:
       gitProvider: MyGithub
