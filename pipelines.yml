@@ -74,8 +74,8 @@ pipelines:
         type: DockerPush
         configuration:
           affinityGroup: ran_cli_group
-          forceXrayScan: true
-          failOnScan: true
+          forceXrayScan: false
+          failOnScan: false
           targetRepository: ran-cli
           integrations:
             - name: MyArtifactory                 
