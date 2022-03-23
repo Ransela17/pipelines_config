@@ -60,7 +60,7 @@ pipelines:
           dockerFileLocation: .
           dockerFileName: Dockerfile
           dockerImageName: pe16510rans.jfrog.io/artifactory/ran-cli/  # replace with your image path and name
-          dockerImageTag: 1 #${run_number}
+          dockerImageTag: ${run_number}
           inputResources:
             -name: pipeline_config
           integrations:
