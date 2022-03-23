@@ -65,7 +65,7 @@ pipelines:
           failOnScan: true
           targetRepository: ran-cli
           integrations:
-            - name: ran_new_image                 
+            - name: MyArtifactory                 
           inputSteps:
             - name: demostep
 
