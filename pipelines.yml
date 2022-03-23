@@ -92,10 +92,10 @@ pipelines:
           onComplete:
             - echo "Cleaning up some stuff"
       
-      # Step 3 - Xray Scan
-      - name: xray
-        type: XrayScan
-        configuration:
-          affinityGroup: ran_cli_group
-          inputResources:
-            - name: cli_buildinfo
+      # # Step 3 - Xray Scan
+      # - name: xray
+      #   type: XrayScan
+      #   configuration:
+      #     affinityGroup: ran_cli_group
+      #     inputResources:
+      #       - name: cli_buildinfo
