@@ -1,10 +1,6 @@
 gitIntegration: MyGithub        # <-- replace with your GitRepo integration name
 gitRepositoryPath: Ransela17/ran-cli  # replace jfrog with your username or org name
 artifactoryIntegration: MyArtifactory     # <-- replace with your Artifactory integration name
-
-
-
-
 imageName: ran_cli_docker_image
 artifactoryUrl: pe16510rans.jfrog.io    # replace with your server name
 sourceRepository: ran-cli # replace local docker repository name created in Artifactory
