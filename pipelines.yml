@@ -34,7 +34,7 @@ pipelines:
           dockerFileLocation: .
           dockerFileName: Dockerfile
           dockerImageTag: ${run_number}
-          dockerImageName: {{ .Values.artifactoryUrl }}/{{ .Values.sourceRepository }}/{{ .Values.imageName }} 
+          dockerImageName: {{ .Values.artifactoryUrl }/{ .Values.sourceRepository }/{ .Values.imageName }} 
           inputResources:
             - name: ran_cli
           integrations:
