@@ -1,12 +1,14 @@
 ##### JFrog - Ran Cli Pipeline #####
+valuesFilePath: ./values.yml
 
 resources:
+
 # Application source repository
   - name: ran_cli
     type: GitRepo
     configuration:
-      gitProvider: MyGithub
-      path: Ransela17/ran-cli                
+      gitProvider: {{ .Values.gitIntegration }}
+      path: {{ .Values.gitRepositoryPath }}              
       branches:
         include: master
       buildOn:
@@ -16,7 +18,7 @@ resources:
   - name: cli_buildinfo
     type: BuildInfo
     configuration:
-      sourceArtifactory: MyArtifactory
+      sourceArtifactory: {{ .Values.artifactoryIntegration }} 
 
 ##### JFrog Pipeline Steps #####
 
@@ -31,12 +33,12 @@ pipelines:
           affinityGroup: ran_cli_group
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: pe16510rans.jfrog.io/ran-cli/ran-cli 
+          dockerImageName: {{ .Values.artifactoryUrl }}/{{ .Values.sourceRepository }}/{{ .Values.imageName }}
           dockerImageTag: ${run_number}
           inputResources:
             - name: ran_cli
           integrations:
-            - name: MyArtifactory
+            - name: {{ .Values.artifactoryIntegration }} 
 
       # Step 2 - Push to Artifactory
       - name: Push
@@ -45,9 +47,9 @@ pipelines:
           affinityGroup: ran_cli_group
           forceXrayScan: false
           failOnScan: false
-          targetRepository: ran-cli
+          targetRepository: {{ .Values.sourceRepository }}
           integrations:
-            - name: MyArtifactory                 
+            - name: {{ .Values.artifactoryIntegration }}                  
           inputSteps:
             - name: Build
 
