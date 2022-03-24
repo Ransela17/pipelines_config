@@ -4,4 +4,4 @@ artifactoryIntegration: MyArtifactory     # <-- replace with your Artifactory in
 imageName: ran_cli_docker_image
 artifactoryUrl: pe16510rans.jfrog.io    # replace with your server name
 sourceRepository: ran-cli # replace local docker repository name created in Artifactory
-dockerImageName: pe16510rans.jfrog.io/rancli/"{{imageName}}"
+dockerImageName: pe16510rans.jfrog.io/rancli/'{{imageName}}'
