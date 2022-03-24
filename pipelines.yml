@@ -33,7 +33,7 @@ pipelines:
           affinityGroup: ran_cli_group
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: {{ .Values.artifactoryUrl }}/{{ .Values.sourceRepository }}/{{ .Values.imageName }}
+          dockerImageName: {{ .Values.artifactoryUrl }}/{{ .Values.sourceRepository }}/{{ .Values.imageName }}  
           dockerImageTag: ${run_number}
           inputResources:
             - name: ran_cli
