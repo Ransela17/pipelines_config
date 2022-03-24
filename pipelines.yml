@@ -20,7 +20,7 @@ resources:
     configuration:
       sourceArtifactory: MyArtifactory
 
-##### JFrog Pipeline Steps #####
+#### JFrog Pipeline Steps ####
 
 pipelines:
   - name: ran_cli_pipeline
