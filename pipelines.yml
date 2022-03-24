@@ -45,7 +45,7 @@ pipelines:
         type: DockerPush
         configuration:
           affinityGroup: ran_cli_group
-          forceXrayScan: false
+          forceXrayScan: true
           failOnScan: false
           targetRepository: ran-cli
           integrations:
