@@ -12,35 +12,11 @@ resources:
       buildOn:
         commit: true
 
-# # Configutaion source repository
-#   - name: pipeline_config
-#     type: GitRepo
-#     configuration:
-#       gitProvider: MyGithub
-#       path: Ransela17/pipelines_config                 
-#       branches:
-#         include: master
-#       # buildOn:
-#       #   commit: true
-
-#####
-
-# # New image location and source
-#   - name: ran_new_image1
-#     type: Image
-#     configuration:
-#       registry: MyArtifactory                             
-#       sourceRepository: ran-cli            
-#       imageName: ran_image_name
-#       imageTag: ${run_number}
-#       autoPull: true
-
 # Bulid info for build image by pipeline
   - name: cli_buildinfo
     type: BuildInfo
     configuration:
       sourceArtifactory: MyArtifactory
-
 
 ##### JFrog Pipeline Steps #####
 
