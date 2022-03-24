@@ -41,7 +41,7 @@ pipelines:
             - name: MyArtifactory 
 
       # Step 2 - Push to Artifactory
-      - name: Push
+      - name: DockerPush
         type: DockerPush
         configuration:
           affinityGroup: ran_cli_group
