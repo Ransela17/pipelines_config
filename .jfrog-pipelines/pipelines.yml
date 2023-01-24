@@ -7,7 +7,7 @@ resources:
   - name: ran_cli
     type: GitRepo
     configuration:
-      gitProvider: MyGithub
+      gitProvider: ran_cli
       path: Ransela17/ran-cli             
       branches:
         include: master
@@ -25,15 +25,32 @@ resources:
 pipelines:
   - name: ran_cli_pipeline
     steps:
-      
+      - name: p1_s1
+        type: Bash
+        configuration:
+          inputResources:
+            # Sets up step to be triggered when there are commit events to myFirstRepo
+            - name: ran_cli
+        execution:
+          onExecute:
+            # Data from input resources is available as env variables in the step
+            - echo $res_ran_cli_commitSha
+            # The next two commands add variables to run state, which is available to all downstream steps in this run
+            # Run state documentation: https://www.jfrog.com/confluence/display/JFROG/Creating+Stateful+Pipelines#CreatingStatefulPipelines-RunState
+            - add_run_variables current_runid=$run_id
+            - add_run_variables commitSha=$res_ran_cli_commitSha
+            # This variable is written to pipeline state in p1_s3.
+            # So this will be empty during first run and will be set to prior run number in subsequent runs
+            # Pipeline state documentation: https://www.jfrog.com/confluence/display/JFROG/Creating+Stateful+Pipelines#CreatingStatefulPipelines-PipelineState
+            - echo "Previous run ID is $prev_runid"
+ 
       # Step 1 - Build App Image 
       - name: Build
         type: DockerBuild
         configuration:
-          affinityGroup: ran_cli_group
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: pe18036eplus.jfrog.io/artifactory/ran-cli/ran-cli
+          dockerImageName: ${{dockerImageName}}
           dockerImageTag: ${run_number}
           inputResources:
             - name: ran_cli
