@@ -50,7 +50,7 @@ pipelines:
         configuration:
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: ${{dockerImageName}}
+          dockerImageName: gcproduse4testing.jfrog.io/rancli/ran_cli_docker_image
           dockerImageTag: ${run_number}
           inputResources:
             - name: ran_cli
